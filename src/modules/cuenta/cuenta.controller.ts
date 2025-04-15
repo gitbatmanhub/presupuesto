@@ -1,39 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { CuentaService } from './cuenta.service';
 import { CreateCuentaDto } from './dto/create-cuenta.dto';
 import { CreateTipoCuentaDto } from './dto/createTipoCuenta.dto';
+import { JwtAuthGuard } from '../auth/guard/jwt-auth.guard';
 
 @Controller('cuenta')
 export class CuentaController {
   constructor(private readonly cuentaService: CuentaService) {}
 
   @Post('createCuenta')
+  @UseGuards(JwtAuthGuard)
   createCuenta(@Body() createCuentaDto: CreateCuentaDto) {
     return this.cuentaService.createCuentaUser(createCuentaDto);
   }
 
   @Post('createTipoCuenta')
+  @UseGuards(JwtAuthGuard)
   createTipoCuenta(@Body() createTipoCuentaDto: CreateTipoCuentaDto) {
     return this.cuentaService.createTipoCuenta(createTipoCuentaDto);
-  }
-
-  /* @Post('create-cuenta-user')
-   createCuentaUser(@Body() createUserCuentaDto: CreateCuentaUserDto) {
-     return this.cuentaService.linkCuentaToUsuario(createUserCuentaDto);
-   }*/
-
-  @Get()
-  findAll() {
-    return this.cuentaService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cuentaService.findOne(+id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.cuentaService.remove(+id);
   }
 }

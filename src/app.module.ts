@@ -8,6 +8,8 @@ import { TransaccionesModule } from './modules/transacciones/transacciones.modul
 import { UserModule } from './modules/auth/user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import * as process from 'node:process';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './modules/auth/guard/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -33,6 +35,6 @@ import * as process from 'node:process';
     TransaccionesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
 export class AppModule {}

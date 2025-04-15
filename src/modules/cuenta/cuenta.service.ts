@@ -42,16 +42,4 @@ export class CuentaService {
   createTipoCuenta(createTipoCuentaDto: CreateTipoCuentaDto) {
     return this.tipoCuentaRepository.save(createTipoCuentaDto);
   }
-
-  findAll() {
-    return `This action returns all cuenta`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} cuenta`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} cuenta`;
-  }
 }
