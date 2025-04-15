@@ -7,9 +7,9 @@ export class CuentaUserEntity {
   @PrimaryGeneratedColumn()
   cuentaUserId: number;
 
-  @ManyToOne(() => UserEntity, (user) => user.idUser)
-  userId: UserEntity;
+  @ManyToOne(() => UserEntity, (user) => user.idUser, { eager: true })
+  userId: UserEntity | number;
 
-  @ManyToOne(() => CuentaEntity, (cuenta) => cuenta.cuentaId)
-  cuentaId: CuentaEntity;
+  @ManyToOne(() => CuentaEntity, (cuenta) => cuenta.cuentaId, { eager: true })
+  cuentaId: CuentaEntity | number;
 }

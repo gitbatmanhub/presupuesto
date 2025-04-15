@@ -1,16 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CuentaService } from './cuenta.service';
 import { CreateCuentaDto } from './dto/create-cuenta.dto';
-import { UpdateCuentaDto } from './dto/update-cuenta.dto';
+import { CreateTipoCuentaDto } from './dto/createTipoCuenta.dto';
 
 @Controller('cuenta')
 export class CuentaController {
   constructor(private readonly cuentaService: CuentaService) {}
 
-  @Post()
-  create(@Body() createCuentaDto: CreateCuentaDto) {
-    return this.cuentaService.create(createCuentaDto);
+  @Post('createCuenta')
+  createCuenta(@Body() createCuentaDto: CreateCuentaDto) {
+    return this.cuentaService.createCuentaUser(createCuentaDto);
   }
+
+  @Post('createTipoCuenta')
+  createTipoCuenta(@Body() createTipoCuentaDto: CreateTipoCuentaDto) {
+    return this.cuentaService.createTipoCuenta(createTipoCuentaDto);
+  }
+
+  /* @Post('create-cuenta-user')
+   createCuentaUser(@Body() createUserCuentaDto: CreateCuentaUserDto) {
+     return this.cuentaService.linkCuentaToUsuario(createUserCuentaDto);
+   }*/
 
   @Get()
   findAll() {
@@ -20,11 +30,6 @@ export class CuentaController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.cuentaService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCuentaDto: UpdateCuentaDto) {
-    return this.cuentaService.update(+id, updateCuentaDto);
   }
 
   @Delete(':id')

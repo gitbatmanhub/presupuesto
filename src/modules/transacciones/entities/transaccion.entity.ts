@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CuentaUserEntity } from '../../cuenta/entities/cuentaUser.entity';
 import { CategoriaEntity } from './categoria.entity';
 
@@ -15,4 +15,13 @@ export class TransaccionEntity {
     (categoriaEntity) => categoriaEntity.categoriaId,
   )
   categoriaId: number;
+
+  @Column({ type: 'enum', enum: ['INGRESO', 'EGRESO'] })
+  tipo: 'INGRESO' | 'EGRESO';
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  fecha: Date;
+
+  @Column()
+  monto: number;
 }
