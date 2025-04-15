@@ -6,20 +6,27 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CuentaModule } from './modules/cuenta/cuenta.module';
 import { TransaccionesModule } from './modules/transacciones/transacciones.module';
 import { UserModule } from './modules/auth/user/user.module';
+import { ConfigModule } from '@nestjs/config';
+import * as process from 'node:process';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env.development',
+      isGlobal: true,
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'admin',
-      password: 'admin',
-      schema: 'presupuesto',
+      host: process.env.HOSTDB,
+      port: +process.env.PORTDB,
+      username: process.env.USERNAMEDB,
+      password: process.env.PASSWORDDB,
+      schema: process.env.SCHEMADB,
       synchronize: true,
+      database: process.env.DATABASEDB,
       entities: ['dist/**/*.entity{.ts,.js}'],
-      database: 'presupuesto',
     }),
+
     AuthModule,
     CuentaModule,
     UserModule,
