@@ -23,6 +23,10 @@ export class TransaccionesService {
     return this.transaccionesService.save(createTransaccioneDto);
   }
 
+  findCategoriaByName(name: string) {
+    return this.categoriaRepository.findOneBy({ nameCategoria: name });
+  }
+
   createCategoriaTransaccion(createCategoriaDto: CreateCategoriaDto) {
     return this.categoriaRepository.save(createCategoriaDto);
   }

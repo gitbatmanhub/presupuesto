@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import * as process from 'node:process';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './modules/auth/guard/jwt-auth.guard';
+import { InitService } from './init/init.service';
 
 @Module({
   imports: [
@@ -35,6 +36,10 @@ import { JwtAuthGuard } from './modules/auth/guard/jwt-auth.guard';
     TransaccionesModule,
   ],
   controllers: [AppController],
-  providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
+  providers: [
+    AppService,
+    InitService,
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+  ],
 })
 export class AppModule {}

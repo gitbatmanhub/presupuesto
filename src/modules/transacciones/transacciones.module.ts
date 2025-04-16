@@ -13,5 +13,6 @@ import { CuentaModule } from '../cuenta/cuenta.module';
   ],
   controllers: [TransaccionesController],
   providers: [TransaccionesService],
+  exports: [TransaccionesService],
 })
 export class TransaccionesModule {}

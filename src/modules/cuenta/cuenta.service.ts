@@ -24,6 +24,20 @@ export class CuentaService {
     return user;
   }
 
+  findAllCuentas(): Promise<CuentaEntity[]> {
+    return this.cuentaRepository.find();
+  }
+
+  findAllTiposCuentas(): Promise<TipoCuentaEntity[]> {
+    return this.tipoCuentaRepository.find();
+  }
+
+  async findTipoCuentaByNombre(nombre: string) {
+    return await this.tipoCuentaRepository.findOneBy({
+      nombreTipoCuenta: nombre,
+    });
+  }
+
   linkCuentaToUsuario(linkCuentaToUsuarioDto: LinkCuentaToUsuarioDto) {
     const { cuentaIdCuentaId, userIdIdUser } = linkCuentaToUsuarioDto;
     const linkCuentaToUsuario = new CuentaUserEntity();
